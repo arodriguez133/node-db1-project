@@ -44,8 +44,18 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+router.put('/:id', async (req, res, next) => {
+  try {
+    const account = await Account.getById(req.params.id);
+    const updatedAccount = await Account.updateById(account, req.body);
+    res.status(200).json(updatedAccount)
+  }
+  catch (err) {
+    res.status(404).json({
+      err: err.message,
+      stack: err.stack
+    })
+  }
 });
 
 router.delete('/:id', (req, res, next) => {
