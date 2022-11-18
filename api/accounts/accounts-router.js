@@ -59,11 +59,11 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   const { id } = req.params
-  console.log(id);
   try {
     const account = await Account.getById(id);
-    const deletedAccount = await Account.deleteById(id);
-    res.status(204).json(deletedAccount);
+    console.log(account);
+    res.status(200).json(account);
+    return await Account.deleteById(id);
   }
   catch (err) {
     res.status(404).json({
