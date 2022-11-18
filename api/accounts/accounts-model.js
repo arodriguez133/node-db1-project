@@ -6,7 +6,6 @@ const getAll = () => {
 }
 
 const getById = id => {
-  console.log(id);
   return db('accounts').where({ id: Number(id) }).first();
 }
 
@@ -27,8 +26,8 @@ const updateById = (id, account) => {
 }
 
 const deleteById = id => {
-  db("accounts")
-    .where(id)
+  return db("accounts")
+    .where('id', Number(id))
     .del()
 }
 
