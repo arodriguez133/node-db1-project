@@ -29,8 +29,19 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/', (req, res, next) => {
-  // DO YOUR MAGIC
+router.post('/', async (req, res, next) => {
+  const { name, budget } = req.body;
+  try {
+    console.log(req.body);
+    const newAccount = await Account.create({ name, budget });
+    res.status(201).json(newAccount);
+  }
+  catch (err) {
+    res.status(404).json({
+      err: err.message,
+      stack: err.stack
+    })
+  }
 })
 
 router.put('/:id', (req, res, next) => {
