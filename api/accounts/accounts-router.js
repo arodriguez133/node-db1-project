@@ -14,8 +14,19 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const account = await Account.getById(id);
+    console.log(account);
+    res.status(200).json(account);
+  }
+  catch (err) {
+    res.json({
+      err: err.message,
+      stack: err.stack
+    })
+  }
 })
 
 router.post('/', (req, res, next) => {

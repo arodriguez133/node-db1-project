@@ -4,5 +4,5 @@ const accountsRouter = require("./accounts/accounts-router");
 const server = express();
 
 server.use(express.json());
-server.use('/', accountsRouter);
+server.use('/api/', accountsRouter);
 module.exports = server;
