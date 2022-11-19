@@ -1,4 +1,6 @@
-const Post = require('./accounts-model');
+const Account = require('./accounts-model');
+const db = require('../../data/db-config');
+
 
 exports.checkAccountPayload = (req, res, next) => {
   const { name, budget } = req.body;
@@ -19,8 +21,20 @@ exports.checkAccountPayload = (req, res, next) => {
   }
 }
 
-exports.checkAccountNameUnique = (req, res, next) => {
-  // DO YOUR MAGIC
+exports.checkAccountNameUnique = async (req, res, next) => {
+  const { name } = req.body;
+  db.select('name')
+    .from('accounts')
+    .where('name', name)
+    .then((userList) => {
+      if (userList.length > 0) {
+        res.status(400).json({
+          message: "That name is taken",
+        })
+      } else {
+        next();
+      }
+    })
 }
 
 exports.checkAccountId = async (req, res, next) => {
