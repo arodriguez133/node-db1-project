@@ -12,11 +12,7 @@ const getById = id => {
 const create = account => {
   const { name, budget } = account;
   return db('accounts')
-    .insert({ name, budget })
-    .then(ids => {
-      console.log(ids);
-      ({ id: ids[0] })
-    });
+    .insert({ name, budget });
 }
 
 const updateById = (id, account) => {
